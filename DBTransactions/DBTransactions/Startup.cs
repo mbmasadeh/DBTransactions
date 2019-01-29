@@ -12,6 +12,9 @@ using DBTransactions.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using DBTransactions.DataBase;
+using DBTransactions.Services;
+using AutoMapper;
+using DBTransactions.Utilites;
 
 namespace DBTransactions
 {
@@ -28,7 +31,17 @@ namespace DBTransactions
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddScoped(typeof(ServiceManager));
             services.AddDbContext<Context>(options => options.UseSqlServer(Configuration.GetConnectionString("DBTransactions")));
+            #region AutoMapper Work
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
+
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
