@@ -10,5 +10,6 @@ namespace DBTransactions.Models
         public int ID { get; set; }
         public string CourseName { get; set; }
         public int Hours { get; set; }
+        public virtual ICollection<StudentCourse> Students { get; set; }
     }
 }
