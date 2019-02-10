@@ -13,9 +13,9 @@ namespace DBTransactions.Services
         {
             _context = context;
         }
-        public T NewSerivce<T>()
+        public T NewService<T>()
         {
-            var serviceType = (T)Activator.CreateInstance(typeof(T),_context);
+            var serviceType = (T)Activator.CreateInstance(typeof(T));
             return serviceType;
         }
         public T NewService<T>(params object[] objects)

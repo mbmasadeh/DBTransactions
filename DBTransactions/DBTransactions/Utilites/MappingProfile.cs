@@ -13,6 +13,7 @@ namespace DBTransactions.Utilites
         public MappingProfile()
         {
             CreateMap<StudentsViewModel, Students>();
+            CreateMap<CoursesViewModel, Courses>();
         }
     }
 }
