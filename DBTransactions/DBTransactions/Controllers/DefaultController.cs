@@ -39,7 +39,8 @@ namespace DBTransactions.Controllers
             var addCourse = service.AddCourse(courses);
             return Ok(addCourse);
         }
-        [HttpPost("/{id}")]
+        
+        [HttpPost("Connect/{id}")]
         public IActionResult Connect([FromBody] CoursesListViewModel coursesList, int id)
         {
             var service = _serviceManager.NewService<TransactionsService>(_context, _mapper);
