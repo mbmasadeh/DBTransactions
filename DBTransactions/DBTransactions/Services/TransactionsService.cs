@@ -2,8 +2,10 @@
 using DBTransactions.DataBase;
 using DBTransactions.Models;
 using DBTransactions.ViewModel;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -34,6 +36,27 @@ namespace DBTransactions.Services
             _context.SaveChanges();
             return mapping;
         }
+
+        public bool StudentsMatchCourse (CoursesListViewModel coursesList, int id)
+        {
+            var match = new StudentCourse();
+            foreach (var item in coursesList.CoursesID)
+            {
+                match.StrudentID = id;
+                match.CourseID = item;
+                _context.Add(match);              
+            }
+            _context.SaveChanges();
+            return true;
+        }
+        //public async List<StudentInfoViewModel> GetStudentInfo(int id)
+        //{
+        //    var studentId = new SqlParameter("id", id);
+        //    var info = _context.Database.ExecuteSqlCommand("select c.CourseName, s.StudentName from c.Courses, s.Students sc.StudentCourse where"
+        //                                                 + " s innerjoin sc on s.id=sc.StrudentID"
+        //                                                 + "");
+        //    return null;
+        //}
 
     }
 }

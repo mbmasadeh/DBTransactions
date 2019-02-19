@@ -25,14 +25,14 @@ namespace DBTransactions.Controllers
             _mapper = mapper;
         }
 
-        [HttpPost]
+        [HttpPost("PostStudent")]
         public IActionResult PostStudent([FromBody] StudentsViewModel students)
         {
             var service = _serviceManager.NewService<TransactionsService>(_context, _mapper);
             var addStudent = service.AddStudent(students);
             return Ok(addStudent);
         }
-        [HttpPost]
+        [HttpPost("PostCourse")]
         public IActionResult PostCourse([FromBody] CoursesViewModel courses)
         {
             var service = _serviceManager.NewService<TransactionsService>(_context, _mapper);
@@ -40,10 +40,18 @@ namespace DBTransactions.Controllers
             return Ok(addCourse);
         }
         
-        [HttpPost("Connect/{id}")]
-        public IActionResult Connect([FromBody] CoursesListViewModel coursesList, int id)
+        [HttpPost("Connect/{studentID}")]
+        public IActionResult Connect([FromBody] CoursesListViewModel coursesList, int studentID)
         {
             var service = _serviceManager.NewService<TransactionsService>(_context, _mapper);
+            var addCourses = service.StudentsMatchCourse(coursesList, studentID);
+            return Ok("Done");
+        }
+        [HttpGet]
+        public IActionResult Get(int studentID)
+        {
+            var service = _serviceManager.NewService<TransactionsService>(_context, _mapper);
+            //var getInfo=service.
             return Ok();
         }
     }

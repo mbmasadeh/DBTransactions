@@ -13,10 +13,9 @@ namespace DBTransactions.DataBase
         {
             //
         }
-
-        DbSet<Students> Students { get; set; }
-        DbSet<Courses> Courses { get; set; }
-        DbSet<StudentCourse> StudentCourse { get; set; }
+        public DbSet<Students> Students { get; set; }
+        public DbSet<Courses> Courses { get; set; }
+        public DbSet<StudentCourse> StudentCourse { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Students>().ToTable("Students");
