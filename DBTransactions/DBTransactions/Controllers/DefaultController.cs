@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DBTransactions.Controllers
 {
+    [Area("api")]
     [Produces("application/json")]
     [Route("api/[controller]")]
     public class DefaultController : Controller
@@ -32,6 +33,7 @@ namespace DBTransactions.Controllers
             var addStudent = service.AddStudent(students);
             return Ok(addStudent);
         }
+ 
         [HttpPost("PostCourse")]
         public IActionResult PostCourse([FromBody] CoursesViewModel courses)
         {
@@ -40,11 +42,11 @@ namespace DBTransactions.Controllers
             return Ok(addCourse);
         }
         
-        [HttpPost("Connect/{studentID}")]
-        public IActionResult Connect([FromBody] CoursesListViewModel coursesList, int studentID)
+        [HttpPost("Connect")]
+        public IActionResult Connect([FromBody] StudentsCourseViewModel coursesList)
         {
             var service = _serviceManager.NewService<TransactionsService>(_context, _mapper);
-            var addCourses = service.StudentsMatchCourse(coursesList, studentID);
+            //var addCourses = service.StudentsMatchCourse(coursesList, studentID);
             return Ok("Done");
         }
         [HttpGet]

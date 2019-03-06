@@ -9,6 +9,6 @@ namespace DBTransactions.ViewModel
     {
         public string StudentName { get; set; }
         public string Email { get; set; }
-        public int MobNumber { get; set; }
+        public string MobNumber { get; set; }
     }
 }

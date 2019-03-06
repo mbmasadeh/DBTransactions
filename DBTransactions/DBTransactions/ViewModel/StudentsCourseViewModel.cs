@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace DBTransactions.ViewModel
 {
-    public class CoursesViewModel
+    public class StudentsCourseViewModel
     {
-        public string CourseName { get; set; }
-        public int Hours { get; set; }
+        public int ID { get; set; }
+        public List<int> CourseID { get; set; }
     }
 }
