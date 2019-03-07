@@ -10,9 +10,9 @@ namespace DBTransactions.Models
     {
         [Key]
         public int ID { get; set; }
-        public Students Sttudents { get; set; }
+        //public Students Sttudents { get; set; }
         public int StrudentID { get; set; }
-        public Courses Courses { get; set; }
+        //public Courses Courses { get; set; }
         public int CourseID { get; set; }
     }
 }

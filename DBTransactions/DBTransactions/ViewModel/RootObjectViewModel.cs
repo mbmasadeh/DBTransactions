@@ -5,9 +5,12 @@ using System.Threading.Tasks;
 
 namespace DBTransactions.ViewModel
 {
-    public class StudentsCourseViewModel
+    public class RootObjectViewModel
+    {
+        public List<CourseID> CourseID { get; set; }
+    }
+    public class CourseID
     {
         public int ID { get; set; }
-        public List<int> CourseID { get; set; }
     }
 }

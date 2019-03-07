@@ -37,15 +37,17 @@ namespace DBTransactions.Services
             return mapping;
         }
 
-        public bool StudentsMatchCourse (CoursesListViewModel coursesList, int id)
+        public bool StudentsMatchCourse (RootObjectViewModel coursesList, int id)
         {
+            List<StudentCourse> Addnew = new List<StudentCourse>();
             var match = new StudentCourse();
-            foreach (var item in coursesList.CoursesID)
+            foreach (var item in coursesList.CourseID)
             {
                 match.StrudentID = id;
-                match.CourseID = item;
-                _context.Add(match);              
+                match.CourseID = item.ID;
+                _context.StudentCourse.Add(match);
             }
+           
             _context.SaveChanges();
             return true;
         }

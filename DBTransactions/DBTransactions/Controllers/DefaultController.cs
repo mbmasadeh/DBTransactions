@@ -42,11 +42,11 @@ namespace DBTransactions.Controllers
             return Ok(addCourse);
         }
         
-        [HttpPost("Connect")]
-        public IActionResult Connect([FromBody] StudentsCourseViewModel coursesList)
+        [HttpPost("Connect/{studentID}")]
+        public IActionResult Connect([FromBody] RootObjectViewModel coursesList, int studentID)
         {
             var service = _serviceManager.NewService<TransactionsService>(_context, _mapper);
-            //var addCourses = service.StudentsMatchCourse(coursesList, studentID);
+            var addCourses = service.StudentsMatchCourse(coursesList, studentID);
             return Ok("Done");
         }
         [HttpGet]
