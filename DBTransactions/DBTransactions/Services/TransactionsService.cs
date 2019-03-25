@@ -21,23 +21,54 @@ namespace DBTransactions.Services
             _mapper = mapper;
         }
 
-        public Students AddStudent(StudentsViewModel students)
+        public ResultsViewModel ReadAllStudent()
         {
-            var mapping = _mapper.Map<Students>(students);
-            _context.Add(mapping);
-            _context.SaveChanges();
-            return mapping;          
+            var all = _context.Students.ToList();
+            return new ResultsViewModel { status = true, data = all };
+        }
+        public ResultsViewModel ReadSingleStudent(int id)
+        {
+            //Check availability
+            var student = _context.Students.FirstOrDefault(x => x.ID == id);
+            if (student == null)
+                return new ResultsViewModel { status = false, message = "No students found" };
+            return new ResultsViewModel { status = true, data = student };
+        }
+        public ResultsViewModel AddStudent(StudentsViewModel students)
+        {
+            //Check for dublication
+            var dublication = _context.Students.Any(x => x.Email == students.Email);
+            if (dublication == true)
+            {
+                return new ResultsViewModel { status = false, message = "Duplicated recored" };
+            }
+            else
+            {
+                var mapping = _mapper.Map<Students>(students);
+                _context.Add(mapping);
+                _context.SaveChanges();
+                return new ResultsViewModel { status = true, data = mapping }; ;
+            }
         }
 
-        public Courses AddCourse(CoursesViewModel course)
+        public ResultsViewModel AddCourse(CoursesViewModel course)
         {
-            var mapping = _mapper.Map<Courses>(course);
-            _context.Add(mapping);
-            _context.SaveChanges();
-            return mapping;
+            //check for dublication
+            var check = _context.Courses.Any(x => x.CourseName == course.CourseName);
+            if (check == true)
+            {
+                return new ResultsViewModel { status = false, message = "Duplicated recored" };
+            }
+            else
+            {
+                var mapping = _mapper.Map<Courses>(course);
+                _context.Add(mapping);
+                _context.SaveChanges();
+                return new ResultsViewModel { status = true, data = mapping };
+            }
         }
 
-        public bool StudentsMatchCourse (RootObjectViewModel coursesList, int id)
+        public bool StudentsMatchCourse(RootObjectViewModel coursesList, int id)
         {
             List<StudentCourse> Addnew = new List<StudentCourse>();
             var match = new StudentCourse();
@@ -47,7 +78,7 @@ namespace DBTransactions.Services
                 match.CourseID = item.ID;
                 _context.StudentCourse.Add(match);
             }
-           
+
             _context.SaveChanges();
             return true;
         }
